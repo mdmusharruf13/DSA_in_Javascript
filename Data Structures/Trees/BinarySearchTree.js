@@ -118,6 +118,23 @@ class BST {
         }
     }
 
+    min(node) {
+        if (!node.left) {
+            return node.value;
+        }
+        else {
+            return this.min(node.left);
+        }
+    }
+    max(node) {
+        if (!node.right) {
+            return node.value;
+        }
+        else {
+            return this.max(node.right);
+        }
+    }
+
 }
 
 
@@ -142,3 +159,7 @@ bst.postorder(bst.root);
 
 console.log("level order");
 bst.levelOrder(bst.root);
+
+console.log("min and max:")
+console.log(bst.min(bst.root));
+console.log(bst.max(bst.root));
