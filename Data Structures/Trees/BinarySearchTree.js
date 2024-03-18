@@ -60,7 +60,23 @@ class BST {
         }
     }
 
-
+    search(root, value) {
+        if (!root) {
+            return false;
+        }
+        if (root.value === value) {
+            return true;
+        }
+        else if (value < root.value) {
+            return this.search(root.left, value);
+        }
+        else if (value > root.value) {
+            return this.search(root.right, value);
+        }
+        else {
+            return false;
+        }
+    }
 
 }
 
@@ -70,3 +86,6 @@ console.log(bst.isEmpty());
 bst.insert(10);
 bst.insert(5);
 bst.insert(15);
+
+console.log(bst.search(bst.root, 50));
+console.log(bst.search(bst.root, 5));
