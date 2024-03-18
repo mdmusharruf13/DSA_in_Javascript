@@ -104,6 +104,7 @@ class BST {
     }
 
     levelOrder() {
+        console.log("level order traversal:")
         const queue = [];
         queue.push(this.root);
         while (queue.length) {
@@ -135,11 +136,41 @@ class BST {
         }
     }
 
+    delete(value) {
+        this.root = this.deleteNode(this.root, value);
+    }
+
+    deleteNode(node, value) {
+        if (node === null) {
+            return node;
+        }
+        if (value < node.value) {
+            node.left = this.deleteNode(node.left, value);
+        }
+        else if (value > node.value) {
+            node.right = this.deleteNode(node.right, value);
+        }
+        else {
+            if (!node.left && !node.right) {
+                return null;
+            }
+            if (!node.left) {
+                return node.right;
+            }
+            else if (!node.right) {
+                return node.left;
+            }
+            node.value = this.min(node.right);
+            node.right = this.deleteNode(node.right, node.value)
+        }
+        return node;
+    }
+
 }
 
 
 const bst = new BST();
-console.log(bst.isEmpty());
+// console.log(bst.isEmpty());
 bst.insert(10);
 bst.insert(5);
 bst.insert(15);
@@ -163,3 +194,11 @@ bst.levelOrder(bst.root);
 console.log("min and max:")
 console.log(bst.min(bst.root));
 console.log(bst.max(bst.root));
+
+bst.levelOrder();
+
+// bst.delete(10); // node with two childs
+bst.delete(5); // node with one childs
+// bst.delete(3); // node with no chids
+
+bst.levelOrder();
